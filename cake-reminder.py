@@ -33,8 +33,7 @@ def compose_mail(name, to_addr):
 
     msg.attach(MIMEText(text.format(name=name), _charset='utf-8'))
 
-    #s = smtplib.SMTP('smtpserv.uni-tuebingen.de')
-    s = smtplib.SMTP('localhost', 1025)
+    s = smtplib.SMTP('smtpserv.uni-tuebingen.de')
     s.sendmail('Cake Reminder', [to_addr], msg.as_string())
 
 
