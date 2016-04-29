@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # This Python file uses the following encoding: utf-8
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
@@ -7,6 +8,7 @@ from email.header import Header
 from datetime import datetime as dt
 import sqlite3
 import time
+import os
 
 text = """Liebe/r {name},
 
@@ -65,4 +67,8 @@ def loop():
 
 
 if __name__ == '__main__':
-    loop()
+    running = os.popen('ps -Af | grep cake-reminder | grep -v grep').read()
+    if running:
+        print 'process already running'
+    else:
+        loop()
