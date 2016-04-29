@@ -60,15 +60,5 @@ def check_bdays():
     conn.close()
 
 
-def loop():
-    while True:
-        check_bdays()
-        time.sleep(4 * 3600)
-
-
 if __name__ == '__main__':
-    running = os.popen('ps -Af | grep cake-reminder | grep -v grep').read()
-    if running:
-        print 'process already running'
-    else:
-        loop()
+    check_bdays()
