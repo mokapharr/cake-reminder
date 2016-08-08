@@ -46,15 +46,14 @@ def check_bdays():
 
     now_md = '____-{:02d}-{:02d}'.format(now.month, now.day)
     now_ymd = '{:04d}-{:02d}-{:02d}'.format(now.year, now.month, now.day)
-    c.execute("select rowid, name, email from birthdays where birthday like '{date}'".format(
-               date=now_md))
+    c.execute("select rowid, name, email, last_cake from birthdays where birthday like '{date}'".format(date=now_md))
     for tup in c.fetchall():
-        rowid, name, email = tup
-        if last_sent != now_ymd:
+        rowid, name, email, last_cake = tup
+        if last_cake != now_ymd:
             compose_mail(name, email)
             compose_mail(name, 'atp-bbq-owner@listserv.uni-tuebingen.de')
             print('sent mail to {} with email address {}'.format(name, email))
-            c.execute("update birthdays set 'last cake'='{date}' where rowid={rid}".format(date=now_ymd, rid=rowid))
+            c.execute("update birthdays set last_cake='{date}' where rowid={rid}".format(date=now_ymd, rid=rowid))
 
     conn.commit()
     conn.close()
